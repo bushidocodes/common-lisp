@@ -1,0 +1,4 @@
+rem adun terpri dara lognor atum
+Which are common-lisp and which are Protoss?
+
+defun
