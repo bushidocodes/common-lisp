@@ -1,7 +1,8 @@
-(defmacro square(num)
-    (print ( * num num))
-)
-"Sets the stuff to 10"
+(defmacro square (num)
+  `(* ,num ,num))
 
-(square 10)
+(print (square 10))
 
+;; Verify it works with a variable, not just a literal
+(let ((x 5))
+  (print (square x)))
