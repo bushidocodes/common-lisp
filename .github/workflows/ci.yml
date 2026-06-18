@@ -1,0 +1,25 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  load-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SBCL
+        run: sudo apt-get install -y sbcl
+
+      - name: Load-check all Lisp files
+        run: |
+          failed=0
+          for f in *.lisp; do
+            echo "=== $f ==="
+            sbcl --noinform --non-interactive \
+              --eval "(load \"$f\")" \
+              --eval "(quit)" 2>&1
+            if [ $? -ne 0 ]; then
+              echo "FAIL: $f"
+              failed=1
+            fi
+          done
+          exit $failed
